@@ -37,6 +37,12 @@ function App() {
     setNotes(newNotes);
   };
 
+  const updateNote = (val, i) => {
+    let newNotes = [...notes];
+    newNotes[i].text = val;
+    setNotes(newNotes);
+  };
+
   return (
     <div className="flex p-5 flex-row">
       <div className="noteslist border w-[280px] flex-shrink-0 h-full mr-2 bg-[#f1f1f1] rounded overflow-hidden">
@@ -120,9 +126,11 @@ function App() {
                   <IoList className="mr-2" /> Notes List
                 </button>
                 <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
-                  <IoTrash className="mr-2" /> Notes List
+                  <IoTrash className="mr-2" /> Delete Note
                 </button>
                 <textarea
+                  value={x.text}
+                  onChange={(e) => updateNote(e.target.value, i)}
                   placeholder="Take a note..."
                   className="w-full bg-transparent focus-visible:outline-none p-2"
                   name=""
