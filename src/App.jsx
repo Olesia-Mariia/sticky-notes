@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import { IoAdd, IoSettingsOutline, IoClose, IoSearch } from "react-icons/io5";
+import { IoAdd, IoSettingsOutline, IoClose, IoSearch, IoCheckmark } from "react-icons/io5";
 import Btn from "./components/Btn";
 
 function App() {
@@ -10,6 +10,16 @@ function App() {
     bgcolor: "#feff9c",
     view: true,
   };
+  const colorArr = [
+    "#feff9c",
+    "#fff740",
+    "#7afcff",
+    "#ff65a3",
+    "#ff7eb9",
+    "#e4eeff",
+    "#d2ccf2",
+    "#c8a8d5",
+  ];
   const [notes, setNotes] = useState([]);
 
   const addNote = (val) => {
@@ -45,50 +55,65 @@ function App() {
           />
           <Btn click={() => addNote()} icon={<IoSearch size={20} />} />
         </div>
-        {notes.length > 0 && notes.map((x, i) => {
-          return <div className="m-2">
-            <div className="flex flex-col w-full p-2 bg-gray-300">
-              <div className="flex justify-end">
-                <span className="text-xs">{x.createdon}</span>
+        {notes.length > 0 &&
+          notes.map((x, i) => {
+            return (
+              <div className="m-2">
+                <div className="flex flex-col w-full p-2 bg-gray-300">
+                  <div className="flex justify-end">
+                    <span className="text-xs">{x.createdon}</span>
+                  </div>
+                  <textarea
+                    value={x.text}
+                    readOnly
+                    placeholder="Take a note..."
+                    className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="2"
+                  ></textarea>
+                </div>
               </div>
-              <textarea
-                value={x.text}
-                readOnly
-                placeholder="Take a note..."
-                className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none"
-                name=""
-                id=""
-                cols="30"
-                rows="2"
-              ></textarea>
-            </div>
-          </div>
-        })}
+            );
+          })}
       </div>
       <div className="notesview w-full">
-        {notes.length > 0 && notes.map((x, i) => {
-          return <div className="flex flex-col bg-red-200 rounded overflow-hidden w-[400px] pb-1 mb-2">
-            <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
-              <Btn click={() => addNote(blankNote)} icon={<IoAdd size={20} />} />
-              <div className="flex">
-                <Btn
-                  click={() => addNote()}
-                  icon={<IoSettingsOutline size={18} />}
-                />
-                <Btn click={() => addNote()} icon={<IoClose size={20} />} />
+        {notes.length > 0 &&
+          notes.map((x, i) => {
+            return (
+              <div className="flex flex-col bg-red-200 rounded overflow-hidden w-[400px] pb-1 mb-2">
+                <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
+                  <Btn
+                    click={() => addNote(blankNote)}
+                    icon={<IoAdd size={20} />}
+                  />
+                  <div className="flex">
+                    <Btn
+                      click={() => addNote()}
+                      icon={<IoSettingsOutline size={18} />}
+                    />
+                    <Btn click={() => addNote()} icon={<IoClose size={20} />} />
+                  </div>
+                </div>
+                <div className="colorarea w-full flex">
+                  {colorArr.map((color, cindex) => {
+                    return <span className="flex flex-row w-full h-8 justify-center items-center" style={{backgroundColor:`${color}`}}>
+                      <IoCheckmark size={20} />
+                    </span>
+                  })}
+                </div>
+                <textarea
+                  placeholder="Take a note..."
+                  className="w-full bg-transparent focus-visible:outline-none p-2"
+                  name=""
+                  id=""
+                  cols="30"
+                  rows="2"
+                ></textarea>
               </div>
-            </div>
-            <textarea
-              placeholder="Take a note..."
-              className="w-full bg-transparent focus-visible:outline-none p-2"
-              name=""
-              id=""
-              cols="30"
-              rows="2"
-            ></textarea>
-          </div>
-        })}
-        
+            );
+          })}
       </div>
     </div>
   );
