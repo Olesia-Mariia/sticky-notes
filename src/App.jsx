@@ -42,8 +42,24 @@ function App() {
           </div>
         </div>
       </div>
-      <div className="notesview border w-full">
-        <h1>Notes View</h1>
+      <div className="notesview w-full">
+        <div className="flex flex-col bg-red-200 rounded overflow-hidden w-[400px] pb-1 mb-2">
+          <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
+            <Btn click={() => addNote()} icon={<IoAdd size={20}/>} />
+            <div className="flex">
+              <Btn click={() => addNote()} icon={<IoSettingsOutline size={18}/>} />
+              <Btn click={() => addNote()} icon={<IoClose size={20}/>} />
+            </div>
+          </div>
+          <textarea 
+            placeholder="Take a note..." 
+            className="w-full bg-transparent focus-visible:outline-none p-2" 
+            name="" 
+            id="" 
+            cols="30" 
+            rows="2"
+          ></textarea>
+        </div>
       </div>
     </div>
   );
