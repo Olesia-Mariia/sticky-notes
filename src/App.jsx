@@ -1,6 +1,14 @@
 import { useState } from "react";
 import "./App.css";
-import { IoAdd, IoSettingsOutline, IoClose, IoSearch, IoCheckmark } from "react-icons/io5";
+import {
+  IoAdd,
+  IoSettingsOutline,
+  IoClose,
+  IoSearch,
+  IoCheckmark,
+  IoList,
+  IoTrash,
+} from "react-icons/io5";
 import Btn from "./components/Btn";
 
 function App() {
@@ -98,11 +106,22 @@ function App() {
                 </div>
                 <div className="colorarea w-full flex">
                   {colorArr.map((color, cindex) => {
-                    return <span className="flex flex-row w-full h-8 justify-center items-center" style={{backgroundColor:`${color}`}}>
-                      <IoCheckmark size={20} />
-                    </span>
+                    return (
+                      <span
+                        className="flex flex-row w-full h-8 justify-center items-center"
+                        style={{ backgroundColor: `${color}` }}
+                      >
+                        <IoCheckmark size={20} />
+                      </span>
+                    );
                   })}
                 </div>
+                <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
+                  <IoList className="mr-2" /> Notes List
+                </button>
+                <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
+                  <IoTrash className="mr-2" /> Notes List
+                </button>
                 <textarea
                   placeholder="Take a note..."
                   className="w-full bg-transparent focus-visible:outline-none p-2"
