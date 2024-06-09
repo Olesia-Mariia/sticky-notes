@@ -43,6 +43,12 @@ function App() {
     setNotes(newNotes);
   };
 
+  const updateColor = (val, i) => {
+    let newNotes = [...notes];
+    newNotes[i].bgcolor = val;
+    setNotes(newNotes);
+  };
+
   return (
     <div className="flex p-5 flex-row">
       <div className="noteslist border w-[280px] flex-shrink-0 h-full mr-2 bg-[#f1f1f1] rounded overflow-hidden">
@@ -73,7 +79,7 @@ function App() {
           notes.map((x, i) => {
             return (
               <div className="m-2">
-                <div className="flex flex-col w-full p-2 bg-gray-300">
+                <div className="flex flex-col w-full p-2" style={{ backgroundColor: `${x.bgcolor}` }}>
                   <div className="flex justify-end">
                     <span className="text-xs">{x.createdon}</span>
                   </div>
@@ -96,7 +102,7 @@ function App() {
         {notes.length > 0 &&
           notes.map((x, i) => {
             return (
-              <div className="flex flex-col bg-red-200 rounded overflow-hidden w-[400px] pb-1 mb-2">
+              <div className="flex flex-col rounded overflow-hidden w-[400px] pb-1 mb-2" style={{ backgroundColor: `${x.bgcolor}` }}>
                 <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
                   <Btn
                     click={() => addNote(blankNote)}
@@ -114,10 +120,12 @@ function App() {
                   {colorArr.map((color, cindex) => {
                     return (
                       <span
-                        className="flex flex-row w-full h-8 justify-center items-center"
+                        onClick={() => updateColor(color, i)}
+                        className="flex flex-row w-full h-8 justify-center items-center cursor-pointer"
                         style={{ backgroundColor: `${color}` }}
                       >
-                        <IoCheckmark size={20} />
+                        {x.bgcolor === color ? <IoCheckmark size={20} /> : <></>}
+                        
                       </span>
                     );
                   })}
