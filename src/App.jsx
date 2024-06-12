@@ -8,15 +8,17 @@ import {
   IoCheckmark,
   IoList,
   IoTrash,
+  IoEllipsisHorizontal,
 } from "react-icons/io5";
 import Btn from "./components/Btn";
 
 function App() {
   const blankNote = {
     text: "",
-    createdon: null,
+    createdon: null, 
     bgcolor: "#feff9c",
     view: true,
+    options: false,
   };
   const colorArr = [
     "#feff9c",
@@ -49,6 +51,18 @@ function App() {
     setNotes(newNotes);
   };
 
+  const updateView = (i) => {
+    let newNotes = [...notes];
+    newNotes[i].view = !newNotes[i].view;
+    setNotes(newNotes);
+  };
+
+  const updateOpt = (i) => {
+    let newNotes = [...notes];
+    newNotes[i].options = !newNotes[i].options;
+    setNotes(newNotes);
+  };
+
   return (
     <div className="flex p-5 flex-row">
       <div className="noteslist border w-[280px] flex-shrink-0 h-full mr-2 bg-[#f1f1f1] rounded overflow-hidden">
@@ -78,8 +92,8 @@ function App() {
         {notes.length > 0 &&
           notes.map((x, i) => {
             return (
-              <div className="m-2">
-                <div className="flex flex-col w-full p-2" style={{ backgroundColor: `${x.bgcolor}` }}>
+              <div className="m-2 relative cursor-pointer" onClick={() => updateView(i)}>
+                <div className={`noteview ${x.view ? 'active' : ''} flex flex-col w-full p-2`} style={{ backgroundColor: `${x.bgcolor}` }}>
                   <div className="flex justify-end">
                     <span className="text-xs">{x.createdon}</span>
                   </div>
@@ -101,53 +115,58 @@ function App() {
       <div className="notesview w-full">
         {notes.length > 0 &&
           notes.map((x, i) => {
-            return (
-              <div className="flex flex-col rounded overflow-hidden w-[400px] pb-1 mb-2" style={{ backgroundColor: `${x.bgcolor}` }}>
-                <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
-                  <Btn
-                    click={() => addNote(blankNote)}
-                    icon={<IoAdd size={20} />}
-                  />
-                  <div className="flex">
+            if (x.view) {
+              return (
+                <div className="flex flex-col rounded overflow-hidden w-[400px] pb-1 mb-2" style={{ backgroundColor: `${x.bgcolor}` }}>
+                  <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
                     <Btn
-                      click={() => addNote()}
-                      icon={<IoSettingsOutline size={18} />}
+                      click={() => addNote(blankNote)}
+                      icon={<IoAdd size={20} />}
                     />
-                    <Btn click={() => addNote()} icon={<IoClose size={20} />} />
+                    <div className="flex">
+                      <Btn
+                        click={() => updateOpt(i)}
+                        icon={<IoEllipsisHorizontal size={18} />}
+                      />
+                      <Btn click={() => updateView(i)} icon={<IoClose size={20} />} />
+                    </div>
                   </div>
+                  {x.options &&
+                    <div className="toolarea flex flex-col bg-gray-100">
+                      <div className="colorarea w-full flex">
+                        {colorArr.map((color, cindex) => {
+                          return (
+                            <span
+                              onClick={() => updateColor(color, i)}
+                              className="flex flex-row w-full h-8 justify-center items-center cursor-pointer"
+                              style={{ backgroundColor: `${color}` }}
+                            >
+                              {x.bgcolor === color ? <IoCheckmark size={20} /> : <></>}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
+                        <IoList className="mr-2" /> Notes List
+                      </button>
+                      <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
+                        <IoTrash className="mr-2" /> Delete Note
+                      </button>
+                    </div>
+                  }
+                  <textarea
+                    value={x.text}
+                    onChange={(e) => updateNote(e.target.value, i)}
+                    placeholder="Take a note..."
+                    className="w-full bg-transparent focus-visible:outline-none p-2"
+                    name=""
+                    id=""
+                    cols="30"
+                    rows="2"
+                  ></textarea>
                 </div>
-                <div className="colorarea w-full flex">
-                  {colorArr.map((color, cindex) => {
-                    return (
-                      <span
-                        onClick={() => updateColor(color, i)}
-                        className="flex flex-row w-full h-8 justify-center items-center cursor-pointer"
-                        style={{ backgroundColor: `${color}` }}
-                      >
-                        {x.bgcolor === color ? <IoCheckmark size={20} /> : <></>}
-                        
-                      </span>
-                    );
-                  })}
-                </div>
-                <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
-                  <IoList className="mr-2" /> Notes List
-                </button>
-                <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
-                  <IoTrash className="mr-2" /> Delete Note
-                </button>
-                <textarea
-                  value={x.text}
-                  onChange={(e) => updateNote(e.target.value, i)}
-                  placeholder="Take a note..."
-                  className="w-full bg-transparent focus-visible:outline-none p-2"
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="2"
-                ></textarea>
-              </div>
-            );
+              );
+            }
           })}
       </div>
     </div>
