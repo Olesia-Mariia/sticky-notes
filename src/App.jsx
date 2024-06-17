@@ -31,6 +31,7 @@ function App() {
     "#c8a8d5",
   ];
   const [notes, setNotes] = useState([]);
+  const [listview, setListview] = useState(true);
 
   const addNote = (val) => {
     let newNotes = [...notes];
@@ -65,7 +66,7 @@ function App() {
 
   return (
     <div className="flex p-5 flex-row">
-      <div className="noteslist border w-[280px] flex-shrink-0 h-full mr-2 bg-[#f1f1f1] rounded overflow-hidden">
+      <div className={`noteslist ${listview ? 'scale-100 w-[280px] h-full mr-2 bg-[#f1f1f1] border' : 'scale-0 w-0 h-0'}  flex-shrink-0 rounded overflow-hidden transition-all linear duration-700`}>
         <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
           {/* Was moved into Btn component
           <button className="hover:bg-gray-100 w-8 h-8 flex justify-center items-center">
@@ -77,7 +78,7 @@ function App() {
               click={() => addNote()}
               icon={<IoSettingsOutline size={18} />}
             />
-            <Btn click={() => addNote()} icon={<IoClose size={20} />} />
+            <Btn click={() => setListview(!listview)} icon={<IoClose size={20} />} />
           </div>
         </div>
         <h1 className="text-2xl p-2">Sticky Notes</h1>
@@ -146,7 +147,7 @@ function App() {
                           );
                         })}
                       </div>
-                      <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
+                      <button onClick={() => setListview(!listview)} className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
                         <IoList className="mr-2" /> Notes List
                       </button>
                       <button className="flex justify-start items-center hover:bg-slate-200 py-1 px-2">
