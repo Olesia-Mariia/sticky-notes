@@ -44,6 +44,31 @@ app.get("/notes/:id", async (req, res) => {
   }
 });
 
+// update a note
+app.put("/notes/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { text, bgcolor, view } = req.body;
+    const updates = [];
+    if (text !== undefined) {
+      updates.push(`text='${text}'`);
+    }
+    if (bgcolor !== undefined) {
+      updates.push(`bgcolor='${bgcolor}'`);
+    }
+    if (view !== undefined) {
+      updates.push(`view=${view}`);
+    }
+    const updatedNote = await pool.query(
+      `UPDATE notes SET ${updates.join(", ")} WHERE note_id=${id}`
+    );
+
+    res.json("Note was updated!");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server has started on port 5000");
 });
