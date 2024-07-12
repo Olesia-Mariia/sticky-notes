@@ -33,6 +33,17 @@ app.get("/notes", async (req, res) => {
   }
 });
 
+// get a single note
+app.get("/notes/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const note = await pool.query(`SELECT * FROM notes WHERE note_id=${id}`);
+    res.json(note.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server has started on port 5000");
 });
