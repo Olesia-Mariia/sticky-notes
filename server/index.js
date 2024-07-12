@@ -23,7 +23,15 @@ app.post("/notes", async (req, res) => {
   }
 });
 
-//
+// get all notes
+app.get("/notes", async (req, res) => {
+  try {
+    const notes = await pool.query("SELECT * FROM notes");
+    res.json(notes.rows);
+  } catch (err) {
+    console.error(err.message);
+  }
+});
 
 app.listen(5000, () => {
   console.log("Server has started on port 5000");
