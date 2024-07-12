@@ -69,6 +69,17 @@ app.put("/notes/:id", async (req, res) => {
   }
 });
 
+// delete a note
+app.delete("/notes/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const deletedNote = await pool.query(`DELETE FROM notes WHERE note_id=${id}`);
+    res.json("Note was deleted!");
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server has started on port 5000");
 });
