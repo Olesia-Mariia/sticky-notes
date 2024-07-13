@@ -13,7 +13,7 @@ export const addNote = async () => {
       body: JSON.stringify(blankNote),
     });
 
-    console.log(response)
+    window.location = "/";
   } catch (err) {
     console.error(err.mesage);
   }
