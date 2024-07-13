@@ -6,13 +6,15 @@ import { addNote } from "../helpers/api";
 import Btn from "./Btn";
 import NotePreview from "./NotePreview";
 
-const NotesListView = ({
-  notes,
-  listview,
-  setListview,
-  searchNote,
-}) => {
+const NotesListView = ({ notes, listview, setListview }) => {
   const [search, setSearch] = useState("");
+  const [filternotes, setFilternotes] = useState([]);
+
+  const searchNote = (search) => {
+    let newNotes = [...notes];
+    let filterData = newNotes.filter((x) => x.text.includes(search));
+    setFilternotes(filterData);
+  };
 
   return (
     <div
@@ -46,13 +48,13 @@ const NotesListView = ({
       {search == "" &&
         notes.length > 0 &&
         notes.map((note) => {
-          return <NotePreview note={note} key={`preview-${note.note_id}`}/>;
+          return <NotePreview note={note} key={`preview-${note.note_id}`} />;
         })}
-      {/* {search != "" &&
+      {search != "" &&
         filternotes.length > 0 &&
-        filternotes.map((x, i) => {
-          <NotePreview />
-        })} */}
+        filternotes.map((note) => {
+          return <NotePreview note={note} key={`preview-${note.note_id}`} />;
+        })}
     </div>
   );
 };

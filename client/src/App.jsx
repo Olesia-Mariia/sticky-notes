@@ -9,7 +9,6 @@ import NoteView from "./components/NoteView";
 function App() {
   const [notes, setNotes] = useState([]);
   const [listview, setListview] = useState(true);
-  const [filternotes, setFilternotes] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,13 +46,7 @@ function App() {
     setNotes(newNotes);
   };
 
-  const searchNote = (search) => {
-    let newNotes = [...notes];
-    let filterData = newNotes.filter((x) => x.text.includes(search));
-    setFilternotes(filterData);
-  };
-
-  const deleteNote = (i) => {
+    const deleteNote = (i) => {
     let newNotes = [...notes];
     newNotes.splice(i, 1);
     setNotes(newNotes);
@@ -65,7 +58,6 @@ function App() {
         notes={notes}
         listview={listview}
         setListview={setListview}
-        searchNote={searchNote}
       />
       <div className="notesview w-full">
         {notes.length > 0 &&
