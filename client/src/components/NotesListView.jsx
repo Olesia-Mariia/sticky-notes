@@ -9,6 +9,7 @@ import {
 import { addNote } from "../helpers/api";
 
 import Btn from "./Btn";
+import NotePreview from "./NotePreview";
 
 const NotesListView = ({listview, setListview, searchNote, notes, filternotes}) => {
   const [search, setSearch] = useState("");
@@ -42,68 +43,16 @@ const NotesListView = ({listview, setListview, searchNote, notes, filternotes}) 
         />
         <Btn click={() => searchNote(search)} icon={<IoSearch size={20} />} />
       </div>
-      {/* {search == "" &&
+      {search == "" &&
         notes.length > 0 &&
         notes.map((x, i) => {
-          return (
-            <div
-              className="m-2 relative cursor-pointer"
-              onClick={() => updateView(i)}
-            >
-              <div
-                className={`noteview ${
-                  x.view ? "active" : ""
-                } flex flex-col w-full p-2`}
-                style={{ backgroundColor: `${x.bgcolor}` }}
-              >
-                <div className="flex justify-end">
-                  <span className="text-xs">{x.createdon}</span>
-                </div>
-                <textarea
-                  value={x.text}
-                  readOnly
-                  placeholder="Take a note..."
-                  className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none"
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="2"
-                ></textarea>
-              </div>
-            </div>
-          );
+          <NotePreview />
         })}
       {search != "" &&
         filternotes.length > 0 &&
         filternotes.map((x, i) => {
-          return (
-            <div
-              className="m-2 relative cursor-pointer"
-              onClick={() => updateView(i)}
-            >
-              <div
-                className={`noteview ${
-                  x.view ? "active" : ""
-                } flex flex-col w-full p-2`}
-                style={{ backgroundColor: `${x.bgcolor}` }}
-              >
-                <div className="flex justify-end">
-                  <span className="text-xs">{x.createdon}</span>
-                </div>
-                <textarea
-                  value={x.text}
-                  readOnly
-                  placeholder="Take a note..."
-                  className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none"
-                  name=""
-                  id=""
-                  cols="30"
-                  rows="2"
-                ></textarea>
-              </div>
-            </div>
-          );
-        })} */}
+          <NotePreview />
+        })}
     </div>
   );
 };
