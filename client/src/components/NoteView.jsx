@@ -1,15 +1,27 @@
 import React from 'react'
+import {
+  IoAdd,
+  IoClose,
+  IoCheckmark,
+  IoList,
+  IoTrash,
+  IoEllipsisHorizontal,
+} from "react-icons/io5";
 
-const NoteView = () => {
+import colorArr from "../helpers/constant"
+
+import Btn from './Btn';
+import { addNote } from '../helpers/api';
+
+const NoteView = ({note}) => {
   return (
     <div
-      key={i}
       className="flex flex-col rounded overflow-hidden w-[400px] pb-1 mb-2"
-      style={{ backgroundColor: `${x.bgcolor}` }}
+      style={{ backgroundColor: `${note.bgcolor}` }}
     >
       <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
         <Btn
-          click={() => addNote(blankNote)}
+          click={() => addNote()}
           icon={<IoAdd size={20} />}
         />
         <div className="flex">
@@ -23,17 +35,17 @@ const NoteView = () => {
           />
         </div>
       </div>
-      {x.options && (
+      {note.options && (
         <div className="toolarea flex flex-col bg-gray-100">
           <div className="colorarea w-full flex">
             {colorArr.map((color, cindex) => {
               return (
                 <span
-                  onClick={() => updateColor(color, i)}
+                  onClick={() => updateColor(color, note.note_id)}
                   className="flex flex-row w-full h-8 justify-center items-center cursor-pointer"
                   style={{ backgroundColor: `${color}` }}
                 >
-                  {x.bgcolor === color ? (
+                  {note.bgcolor === color ? (
                     <IoCheckmark size={20} />
                   ) : (
                     <></>
@@ -57,7 +69,7 @@ const NoteView = () => {
         </div>
       )}
       <textarea
-        value={x.text}
+        value={note.text}
         onChange={(e) => updateNote(e.target.value, i)}
         placeholder="Take a note..."
         className="w-full bg-transparent focus-visible:outline-none p-2"

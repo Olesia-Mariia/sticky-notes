@@ -1,17 +1,17 @@
-import React, {useState} from "react";
-import {
-  IoAdd,
-  IoSettingsOutline,
-  IoClose,
-  IoSearch
-} from "react-icons/io5";
+import React, { useState } from "react";
+import { IoAdd, IoSettingsOutline, IoClose, IoSearch } from "react-icons/io5";
 
 import { addNote } from "../helpers/api";
 
 import Btn from "./Btn";
 import NotePreview from "./NotePreview";
 
-const NotesListView = ({listview, setListview, searchNote, notes, filternotes}) => {
+const NotesListView = ({
+  notes,
+  listview,
+  setListview,
+  searchNote,
+}) => {
   const [search, setSearch] = useState("");
 
   return (
@@ -45,14 +45,14 @@ const NotesListView = ({listview, setListview, searchNote, notes, filternotes}) 
       </div>
       {search == "" &&
         notes.length > 0 &&
-        notes.map((x, i) => {
-          <NotePreview />
+        notes.map((note) => {
+          return <NotePreview note={note} key={`preview-${note.note_id}`}/>;
         })}
-      {search != "" &&
+      {/* {search != "" &&
         filternotes.length > 0 &&
         filternotes.map((x, i) => {
           <NotePreview />
-        })}
+        })} */}
     </div>
   );
 };

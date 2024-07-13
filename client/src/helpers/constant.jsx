@@ -1,4 +1,4 @@
-export const colorArr = [
+const colorArr = [
   "#feff9c",
   "#fff740",
   "#7afcff",
@@ -8,3 +8,5 @@ export const colorArr = [
   "#d2ccf2",
   "#c8a8d5",
 ];
+
+export default colorArr;

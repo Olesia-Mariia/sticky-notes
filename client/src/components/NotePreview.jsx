@@ -1,19 +1,19 @@
 import React from "react";
 
-const NotePreview = () => {
+const NotePreview = ({note}) => {
   return (
-    <div className="m-2 relative cursor-pointer" onClick={() => updateView(i)}>
+    <div  className="m-2 relative cursor-pointer" onClick={() => updateView(i)}>
       <div
         className={`noteview ${
-          x.view ? "active" : ""
+          note.view ? "active" : ""
         } flex flex-col w-full p-2`}
-        style={{ backgroundColor: `${x.bgcolor}` }}
+        style={{ backgroundColor: `${note.bgcolor}` }}
       >
         <div className="flex justify-end">
-          <span className="text-xs">{x.createdon}</span>
+          <span className="text-xs">{ new Date(note.cdate).toDateString()}</span>
         </div>
         <textarea
-          value={x.text}
+          value={note.text}
           readOnly
           placeholder="Take a note..."
           className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none"

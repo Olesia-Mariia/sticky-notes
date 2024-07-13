@@ -18,3 +18,14 @@ export const addNote = async () => {
     console.error(err.mesage);
   }
 };
+
+export const getNotes = async () => {
+  try {
+    const response = await fetch("http://localhost:5000/notes");
+    const jsonData = await response.json();
+
+    return jsonData;
+  } catch (err) {
+    console.error(err.mesage);
+  }
+};
