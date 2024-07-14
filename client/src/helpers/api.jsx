@@ -40,3 +40,17 @@ export const deleteNote = async (id) => {
     console.error(err.mesage);
   }
 }
+
+// updateNote({ bgcolor: val }, id);
+
+export const updateNote = async (body, id) => {
+  try {
+    const response = await fetch(`http://localhost:5000/notes/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+  } catch (err) {
+    console.error(err.mesage);
+  }
+};

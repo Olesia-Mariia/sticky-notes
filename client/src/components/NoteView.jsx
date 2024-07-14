@@ -9,12 +9,39 @@ import {
 } from "react-icons/io5";
 
 import colorArr from "../helpers/constant";
-import { addNote, deleteNote } from "../helpers/api";
+import { addNote, deleteNote, updateNote } from "../helpers/api";
 
 import Btn from "./Btn";
 
 const NoteView = ({ note, setNotes, listview, setListview }) => {
   const [options, setOptions] = useState(false);
+
+  const updateText = (text, id) => {
+    updateNote({ text }, id);
+    setNotes((prevNotes) =>
+      prevNotes.map((n) =>
+        n.note_id === note.note_id ? { ...n, text } : n
+      )
+    );
+  };
+
+  const updateColor = (bgcolor, id) => {
+    updateNote({ bgcolor }, id);
+    setNotes((prevNotes) =>
+      prevNotes.map((n) =>
+        n.note_id === note.note_id ? { ...n, bgcolor } : n
+      )
+    );
+  };
+
+  const updateView = (id) => {
+    updateNote({ view: !note.view }, id);
+    setNotes((prevNotes) =>
+      prevNotes.map((n) =>
+        n.note_id === note.note_id ? { ...n, view: !n.view } : n
+      )
+    );
+  };
 
   return (
     <div
@@ -28,7 +55,7 @@ const NoteView = ({ note, setNotes, listview, setListview }) => {
             click={() => setOptions(!options)}
             icon={<IoEllipsisHorizontal size={18} />}
           />
-          <Btn click={() => updateView(i)} icon={<IoClose size={20} />} />
+          <Btn click={() => updateView(note.note_id)} icon={<IoClose size={20} />} />
         </div>
       </div>
       {options && (
@@ -37,6 +64,7 @@ const NoteView = ({ note, setNotes, listview, setListview }) => {
             {colorArr.map((color, cindex) => {
               return (
                 <span
+                  key={`color-${cindex}`}
                   onClick={() => updateColor(color, note.note_id)}
                   className="flex flex-row w-full h-8 justify-center items-center cursor-pointer"
                   style={{ backgroundColor: `${color}` }}
@@ -67,7 +95,7 @@ const NoteView = ({ note, setNotes, listview, setListview }) => {
       )}
       <textarea
         value={note.text}
-        onChange={(e) => updateNote(e.target.value, i)}
+        onChange={(e) => updateText(e.target.value, note.note_id)}
         placeholder="Take a note..."
         className="w-full bg-transparent focus-visible:outline-none p-2"
         name=""

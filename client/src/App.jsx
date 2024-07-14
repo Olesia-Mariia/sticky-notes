@@ -22,36 +22,13 @@ function App() {
     fetchData();
   }, []);
 
-  const updateNote = (val, i) => {
-    let newNotes = [...notes];
-    newNotes[i].text = val;
-    setNotes(newNotes);
-  };
-
-  const updateColor = (val, i) => {
-    let newNotes = [...notes];
-    newNotes[i].bgcolor = val;
-    setNotes(newNotes);
-  };
-
-  const updateView = (i) => {
-    let newNotes = [...notes];
-    newNotes[i].view = !newNotes[i].view;
-    setNotes(newNotes);
-  };
-
-  const updateOpt = (i) => {
-    let newNotes = [...notes];
-    newNotes[i].options = !newNotes[i].options;
-    setNotes(newNotes);
-  };
-
   return (
     <div className="flex p-5 flex-row">
       <NotesListView
         notes={notes}
         listview={listview}
         setListview={setListview}
+        setNotes={setNotes}
       />
       <div className="notesview w-full">
         {notes.length > 0 &&
@@ -59,8 +36,8 @@ function App() {
             if (note.view) {
               return (
                 <NoteView
-                  note={note}
                   key={`note-${note.note_id}`}
+                  note={note}
                   setNotes={setNotes}
                   listview={listview}
                   setListview={setListview}
