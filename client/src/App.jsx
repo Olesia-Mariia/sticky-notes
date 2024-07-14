@@ -16,9 +16,9 @@ function App() {
         const newNotes = await getNotes();
         setNotes(newNotes);
       } catch (err) {
-        console.error(err.mesage)
+        console.error(err.mesage);
       }
-    }
+    };
     fetchData();
   }, []);
 
@@ -55,9 +55,17 @@ function App() {
       />
       <div className="notesview w-full">
         {notes.length > 0 &&
-          notes.map(note => {
+          notes.map((note) => {
             if (note.view) {
-              return <NoteView note={note} key={`note-${note.note_id}`} setNotes={setNotes} />;
+              return (
+                <NoteView
+                  note={note}
+                  key={`note-${note.note_id}`}
+                  setNotes={setNotes}
+                  listview={listview}
+                  setListview={setListview}
+                />
+              );
             }
           })}
       </div>

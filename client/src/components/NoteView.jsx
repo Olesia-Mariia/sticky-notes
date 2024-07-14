@@ -13,7 +13,7 @@ import { addNote, deleteNote } from "../helpers/api";
 
 import Btn from "./Btn";
 
-const NoteView = ({ note, setNotes }) => {
+const NoteView = ({ note, setNotes, listview, setListview }) => {
   const [options, setOptions] = useState(false);
 
   return (
