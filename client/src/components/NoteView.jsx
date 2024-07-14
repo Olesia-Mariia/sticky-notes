@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from "react";
 import {
   IoAdd,
   IoClose,
@@ -8,34 +8,30 @@ import {
   IoEllipsisHorizontal,
 } from "react-icons/io5";
 
-import colorArr from "../helpers/constant"
+import colorArr from "../helpers/constant";
+import { addNote, deleteNote } from "../helpers/api";
 
-import Btn from './Btn';
-import { addNote } from '../helpers/api';
+import Btn from "./Btn";
 
-const NoteView = ({note}) => {
+const NoteView = ({ note, setNotes }) => {
+  const [options, setOptions] = useState(false);
+
   return (
     <div
       className="flex flex-col rounded overflow-hidden w-[400px] pb-1 mb-2"
       style={{ backgroundColor: `${note.bgcolor}` }}
     >
       <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">
-        <Btn
-          click={() => addNote()}
-          icon={<IoAdd size={20} />}
-        />
+        <Btn click={() => addNote()} icon={<IoAdd size={20} />} />
         <div className="flex">
           <Btn
-            click={() => updateOpt(i)}
+            click={() => setOptions(!options)}
             icon={<IoEllipsisHorizontal size={18} />}
           />
-          <Btn
-            click={() => updateView(i)}
-            icon={<IoClose size={20} />}
-          />
+          <Btn click={() => updateView(i)} icon={<IoClose size={20} />} />
         </div>
       </div>
-      {note.options && (
+      {options && (
         <div className="toolarea flex flex-col bg-gray-100">
           <div className="colorarea w-full flex">
             {colorArr.map((color, cindex) => {
@@ -45,11 +41,7 @@ const NoteView = ({note}) => {
                   className="flex flex-row w-full h-8 justify-center items-center cursor-pointer"
                   style={{ backgroundColor: `${color}` }}
                 >
-                  {note.bgcolor === color ? (
-                    <IoCheckmark size={20} />
-                  ) : (
-                    <></>
-                  )}
+                  {note.bgcolor === color ? <IoCheckmark size={20} /> : <></>}
                 </span>
               );
             })}
@@ -61,7 +53,12 @@ const NoteView = ({note}) => {
             <IoList className="mr-2" /> Notes List
           </button>
           <button
-            onClick={() => deleteNote(i)}
+            onClick={() => {
+              deleteNote(note.note_id);
+              setNotes((prevNotes) =>
+                prevNotes.filter((x) => x.note_id !== note.note_id)
+              );
+            }}
             className="flex justify-start items-center hover:bg-slate-200 py-1 px-2"
           >
             <IoTrash className="mr-2" /> Delete Note
@@ -79,7 +76,7 @@ const NoteView = ({note}) => {
         rows="2"
       ></textarea>
     </div>
-  )
-}
+  );
+};
 
-export default NoteView
+export default NoteView;

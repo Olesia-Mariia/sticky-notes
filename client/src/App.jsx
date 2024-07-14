@@ -46,12 +46,6 @@ function App() {
     setNotes(newNotes);
   };
 
-    const deleteNote = (i) => {
-    let newNotes = [...notes];
-    newNotes.splice(i, 1);
-    setNotes(newNotes);
-  };
-
   return (
     <div className="flex p-5 flex-row">
       <NotesListView
@@ -63,7 +57,7 @@ function App() {
         {notes.length > 0 &&
           notes.map(note => {
             if (note.view) {
-              return <NoteView note={note} key={`note-${note.note_id}`} />;
+              return <NoteView note={note} key={`note-${note.note_id}`} setNotes={setNotes} />;
             }
           })}
       </div>

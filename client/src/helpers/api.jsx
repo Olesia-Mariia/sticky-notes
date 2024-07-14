@@ -29,3 +29,14 @@ export const getNotes = async () => {
     console.error(err.mesage);
   }
 };
+
+export const deleteNote = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:5000/notes/${id}`, {
+      method: "DELETE",
+    });
+
+  } catch (err) {
+    console.error(err.mesage);
+  }
+}
