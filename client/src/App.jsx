@@ -30,7 +30,7 @@ function App() {
         setListview={setListview}
         setNotes={setNotes}
       />
-      <div className="notesview w-full">
+      <div className="notesview w-full flex flex-wrap content-start items-start">
         {notes.length > 0 &&
           notes.map((note) => {
             if (note.view) {

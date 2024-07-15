@@ -45,7 +45,7 @@ const NoteView = ({ note, setNotes, listview, setListview }) => {
 
   return (
     <div
-      className="flex flex-col rounded overflow-hidden w-[400px] pb-1 mb-2"
+      className="flex flex-col rounded overflow-hidden w-[330px] pb-1 mb-2 mr-2"
       style={{ backgroundColor: `${note.bgcolor}` }}
     >
       <div className="toolbar flex justify-between bg-black bg-opacity-10 items-center">

@@ -20,7 +20,7 @@ const NotesListView = ({ notes, listview, setListview, setNotes }) => {
     <div
       className={`noteslist ${
         listview
-          ? "scale-100 w-[280px] h-full mr-2 bg-[#f1f1f1] border"
+          ? "scale-100 w-[280px] max-h-[570px] mr-2 bg-[#f1f1f1] border"
           : "scale-0 w-0 h-0"
       }  flex-shrink-0 rounded overflow-hidden transition-all linear duration-700`}
     >
@@ -45,16 +45,18 @@ const NotesListView = ({ notes, listview, setListview, setNotes }) => {
         />
         <Btn click={() => searchNote(search)} icon={<IoSearch size={20} />} />
       </div>
-      {search == "" &&
-        notes.length > 0 &&
-        notes.map((note) => {
-          return <NotePreview note={note} key={`preview-${note.note_id}`} setNotes={setNotes} />;
-        })}
-      {search != "" &&
-        filternotes.length > 0 &&
-        filternotes.map((note) => {
-          return <NotePreview note={note} key={`preview-${note.note_id}`} setNotes={setNotes} />;
-        })}
+      <div className="max-h-[420px] overflow-auto">
+        {search == "" &&
+          notes.length > 0 &&
+          notes.map((note) => {
+            return <NotePreview note={note} key={`preview-${note.note_id}`} setNotes={setNotes} />;
+          })}
+        {search != "" &&
+          filternotes.length > 0 &&
+          filternotes.map((note) => {
+            return <NotePreview note={note} key={`preview-${note.note_id}`} setNotes={setNotes} />;
+          })}
+      </div>
     </div>
   );
 };

@@ -28,7 +28,7 @@ const NotePreview = ({ note, setNotes }) => {
           value={note.text}
           readOnly
           placeholder="Take a note..."
-          className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none"
+          className="w-full cursor-pointer bg-transparent resize-none focus-visible:outline-none overflow-hidden"
           name=""
           id=""
           cols="30"
