@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useEffect, useState } from 'react';
+import './App.css';
 
-import { getNotes } from "./helpers/api";
+import { getNotes } from './helpers/api';
 
-import NotesListView from "./components/NotesListView";
-import NoteView from "./components/NoteView";
+import NotesListView from './components/NotesListView';
+import NotesView from './components/NotesView';
 
 function App() {
   const [notes, setNotes] = useState([]);
@@ -30,22 +30,14 @@ function App() {
         setListview={setListview}
         setNotes={setNotes}
       />
-      <div className="notesview w-full flex flex-wrap content-start items-start">
-        {notes.length > 0 &&
-          notes.map((note) => {
-            if (note.view) {
-              return (
-                <NoteView
-                  key={`note-${note.note_id}`}
-                  note={note}
-                  setNotes={setNotes}
-                  listview={listview}
-                  setListview={setListview}
-                />
-              );
-            }
-          })}
-      </div>
+      {notes.length > 0 && (
+        <NotesView
+          notes={notes}
+          setNotes={setNotes}
+          listview={listview}
+          setListview={setListview}
+        />
+      )}
     </div>
   );
 }
